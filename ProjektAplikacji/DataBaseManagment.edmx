@@ -1,0 +1,693 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DataBaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="magazyn_firmy">
+          <Key>
+            <PropertyRef Name="firma_id" />
+          </Key>
+          <Property Name="firma_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="firma_nazwa" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="magazyn_kategorie">
+          <Key>
+            <PropertyRef Name="kategoria_id" />
+          </Key>
+          <Property Name="kategoria_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="kategoria_nazwa" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="magazyn_lista">
+          <Key>
+            <PropertyRef Name="sklep_id" />
+            <PropertyRef Name="produkt_id" />
+          </Key>
+          <Property Name="sklep_id" Type="int" Nullable="false" />
+          <Property Name="produkt_id" Type="int" Nullable="false" />
+          <Property Name="ilosc" Type="int" />
+        </EntityType>
+        <EntityType Name="magazyn_produkty">
+          <Key>
+            <PropertyRef Name="produkt_id" />
+          </Key>
+          <Property Name="produkt_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="produkt_nazwa" Type="varchar" MaxLength="35" Nullable="false" />
+          <Property Name="firma_id" Type="int" Nullable="false" />
+          <Property Name="kategoria_id" Type="int" Nullable="false" />
+          <Property Name="model_rok" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="cena" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sprzedaz_klienci">
+          <Key>
+            <PropertyRef Name="klient_id" />
+          </Key>
+          <Property Name="klient_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="imie" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="nazwisko" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="telefon" Type="varchar" MaxLength="12" />
+          <Property Name="email" Type="varchar" MaxLength="35" Nullable="false" />
+          <Property Name="ulica" Type="varchar" MaxLength="30" />
+          <Property Name="miasto" Type="varchar" MaxLength="20" />
+          <Property Name="kod_pocztowy" Type="varchar" MaxLength="5" />
+        </EntityType>
+        <EntityType Name="sprzedaz_pracownicy">
+          <Key>
+            <PropertyRef Name="pracownik_id" />
+          </Key>
+          <Property Name="pracownik_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="imie" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="nazwisko" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="35" Nullable="false" />
+          <Property Name="telefon" Type="varchar" MaxLength="12" />
+          <Property Name="sklep_id" Type="int" Nullable="false" />
+          <Property Name="menadzer_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sprzedaz_sklepy">
+          <Key>
+            <PropertyRef Name="sklep_id" />
+          </Key>
+          <Property Name="sklep_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="sklep_nazwa" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="telefon" Type="varchar" MaxLength="12" />
+          <Property Name="email" Type="varchar" MaxLength="35" />
+          <Property Name="ulica" Type="varchar" MaxLength="30" />
+          <Property Name="miasto" Type="varchar" MaxLength="20" />
+          <Property Name="kod_pocztowy" Type="varchar" MaxLength="5" />
+        </EntityType>
+        <EntityType Name="sprzedaz_zamowienia">
+          <Key>
+            <PropertyRef Name="zamowienie_id" />
+          </Key>
+          <Property Name="zamowienie_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="klient_id" Type="int" />
+          <Property Name="zamowienie_status" Type="tinyint" Nullable="false" />
+          <Property Name="zamowienia_data" Type="date" Nullable="false" />
+          <Property Name="wysylka_data" Type="date" />
+          <Property Name="sklep_id" Type="int" Nullable="false" />
+          <Property Name="pracownik_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sprzedaz_zamowione_rzeczy">
+          <Key>
+            <PropertyRef Name="zamowienie_id" />
+          </Key>
+          <Property Name="zamowienie_id" Type="int" Nullable="false" />
+          <Property Name="produkt_id" Type="int" Nullable="false" />
+          <Property Name="ilosc" Type="int" Nullable="false" />
+          <Property Name="cena" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="przecena" Type="decimal" Precision="4" Scale="2" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__magazyn_l__produ__4F7CD00D">
+          <End Role="magazyn_produkty" Type="Self.magazyn_produkty" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="magazyn_lista" Type="Self.magazyn_lista" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="magazyn_produkty">
+              <PropertyRef Name="produkt_id" />
+            </Principal>
+            <Dependent Role="magazyn_lista">
+              <PropertyRef Name="produkt_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__magazyn_l__sklep__4E88ABD4">
+          <End Role="sprzedaz_sklepy" Type="Self.sprzedaz_sklepy" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="magazyn_lista" Type="Self.magazyn_lista" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sprzedaz_sklepy">
+              <PropertyRef Name="sklep_id" />
+            </Principal>
+            <Dependent Role="magazyn_lista">
+              <PropertyRef Name="sklep_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__magazyn_p__firma__3B75D760">
+          <End Role="magazyn_firmy" Type="Self.magazyn_firmy" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="magazyn_produkty" Type="Self.magazyn_produkty" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="magazyn_firmy">
+              <PropertyRef Name="firma_id" />
+            </Principal>
+            <Dependent Role="magazyn_produkty">
+              <PropertyRef Name="firma_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__magazyn_p__kateg__3A81B327">
+          <End Role="magazyn_kategorie" Type="Self.magazyn_kategorie" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="magazyn_produkty" Type="Self.magazyn_produkty" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="magazyn_kategorie">
+              <PropertyRef Name="kategoria_id" />
+            </Principal>
+            <Dependent Role="magazyn_produkty">
+              <PropertyRef Name="kategoria_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__sprzedaz___klien__45F365D3">
+          <End Role="sprzedaz_klienci" Type="Self.sprzedaz_klienci" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="sprzedaz_zamowienia" Type="Self.sprzedaz_zamowienia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sprzedaz_klienci">
+              <PropertyRef Name="klient_id" />
+            </Principal>
+            <Dependent Role="sprzedaz_zamowienia">
+              <PropertyRef Name="klient_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__sprzedaz___produ__4BAC3F29">
+          <End Role="magazyn_produkty" Type="Self.magazyn_produkty" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="sprzedaz_zamowione_rzeczy" Type="Self.sprzedaz_zamowione_rzeczy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="magazyn_produkty">
+              <PropertyRef Name="produkt_id" />
+            </Principal>
+            <Dependent Role="sprzedaz_zamowione_rzeczy">
+              <PropertyRef Name="produkt_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__sprzedaz___sklep__4316F928">
+          <End Role="sprzedaz_sklepy" Type="Self.sprzedaz_sklepy" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="sprzedaz_pracownicy" Type="Self.sprzedaz_pracownicy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sprzedaz_sklepy">
+              <PropertyRef Name="sklep_id" />
+            </Principal>
+            <Dependent Role="sprzedaz_pracownicy">
+              <PropertyRef Name="sklep_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__sprzedaz___sklep__46E78A0C">
+          <End Role="sprzedaz_sklepy" Type="Self.sprzedaz_sklepy" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="sprzedaz_zamowienia" Type="Self.sprzedaz_zamowienia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sprzedaz_sklepy">
+              <PropertyRef Name="sklep_id" />
+            </Principal>
+            <Dependent Role="sprzedaz_zamowienia">
+              <PropertyRef Name="sklep_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__sprzedaz___zamow__4AB81AF0">
+          <End Role="sprzedaz_zamowienia" Type="Self.sprzedaz_zamowienia" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="sprzedaz_zamowione_rzeczy" Type="Self.sprzedaz_zamowione_rzeczy" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="sprzedaz_zamowienia">
+              <PropertyRef Name="zamowienie_id" />
+            </Principal>
+            <Dependent Role="sprzedaz_zamowione_rzeczy">
+              <PropertyRef Name="zamowienie_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DataBaseModelStoreContainer">
+          <EntitySet Name="magazyn_firmy" EntityType="Self.magazyn_firmy" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="magazyn_kategorie" EntityType="Self.magazyn_kategorie" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="magazyn_lista" EntityType="Self.magazyn_lista" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="magazyn_produkty" EntityType="Self.magazyn_produkty" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sprzedaz_klienci" EntityType="Self.sprzedaz_klienci" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sprzedaz_pracownicy" EntityType="Self.sprzedaz_pracownicy" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sprzedaz_sklepy" EntityType="Self.sprzedaz_sklepy" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sprzedaz_zamowienia" EntityType="Self.sprzedaz_zamowienia" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sprzedaz_zamowione_rzeczy" EntityType="Self.sprzedaz_zamowione_rzeczy" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__magazyn_l__produ__4F7CD00D" Association="Self.FK__magazyn_l__produ__4F7CD00D">
+            <End Role="magazyn_produkty" EntitySet="magazyn_produkty" />
+            <End Role="magazyn_lista" EntitySet="magazyn_lista" />
+          </AssociationSet>
+          <AssociationSet Name="FK__magazyn_l__sklep__4E88ABD4" Association="Self.FK__magazyn_l__sklep__4E88ABD4">
+            <End Role="sprzedaz_sklepy" EntitySet="sprzedaz_sklepy" />
+            <End Role="magazyn_lista" EntitySet="magazyn_lista" />
+          </AssociationSet>
+          <AssociationSet Name="FK__magazyn_p__firma__3B75D760" Association="Self.FK__magazyn_p__firma__3B75D760">
+            <End Role="magazyn_firmy" EntitySet="magazyn_firmy" />
+            <End Role="magazyn_produkty" EntitySet="magazyn_produkty" />
+          </AssociationSet>
+          <AssociationSet Name="FK__magazyn_p__kateg__3A81B327" Association="Self.FK__magazyn_p__kateg__3A81B327">
+            <End Role="magazyn_kategorie" EntitySet="magazyn_kategorie" />
+            <End Role="magazyn_produkty" EntitySet="magazyn_produkty" />
+          </AssociationSet>
+          <AssociationSet Name="FK__sprzedaz___klien__45F365D3" Association="Self.FK__sprzedaz___klien__45F365D3">
+            <End Role="sprzedaz_klienci" EntitySet="sprzedaz_klienci" />
+            <End Role="sprzedaz_zamowienia" EntitySet="sprzedaz_zamowienia" />
+          </AssociationSet>
+          <AssociationSet Name="FK__sprzedaz___produ__4BAC3F29" Association="Self.FK__sprzedaz___produ__4BAC3F29">
+            <End Role="magazyn_produkty" EntitySet="magazyn_produkty" />
+            <End Role="sprzedaz_zamowione_rzeczy" EntitySet="sprzedaz_zamowione_rzeczy" />
+          </AssociationSet>
+          <AssociationSet Name="FK__sprzedaz___sklep__4316F928" Association="Self.FK__sprzedaz___sklep__4316F928">
+            <End Role="sprzedaz_sklepy" EntitySet="sprzedaz_sklepy" />
+            <End Role="sprzedaz_pracownicy" EntitySet="sprzedaz_pracownicy" />
+          </AssociationSet>
+          <AssociationSet Name="FK__sprzedaz___sklep__46E78A0C" Association="Self.FK__sprzedaz___sklep__46E78A0C">
+            <End Role="sprzedaz_sklepy" EntitySet="sprzedaz_sklepy" />
+            <End Role="sprzedaz_zamowienia" EntitySet="sprzedaz_zamowienia" />
+          </AssociationSet>
+          <AssociationSet Name="FK__sprzedaz___zamow__4AB81AF0" Association="Self.FK__sprzedaz___zamow__4AB81AF0">
+            <End Role="sprzedaz_zamowienia" EntitySet="sprzedaz_zamowienia" />
+            <End Role="sprzedaz_zamowione_rzeczy" EntitySet="sprzedaz_zamowione_rzeczy" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DataBaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="magazyn_firmy">
+          <Key>
+            <PropertyRef Name="firma_id" />
+          </Key>
+          <Property Name="firma_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="firma_nazwa" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="magazyn_produkty" Relationship="Self.FK__magazyn_p__firma__3B75D760" FromRole="magazyn_firmy" ToRole="magazyn_produkty" />
+        </EntityType>
+        <EntityType Name="magazyn_kategorie">
+          <Key>
+            <PropertyRef Name="kategoria_id" />
+          </Key>
+          <Property Name="kategoria_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="kategoria_nazwa" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="magazyn_produkty" Relationship="Self.FK__magazyn_p__kateg__3A81B327" FromRole="magazyn_kategorie" ToRole="magazyn_produkty" />
+        </EntityType>
+        <EntityType Name="magazyn_lista">
+          <Key>
+            <PropertyRef Name="sklep_id" />
+            <PropertyRef Name="produkt_id" />
+          </Key>
+          <Property Name="sklep_id" Type="Int32" Nullable="false" />
+          <Property Name="produkt_id" Type="Int32" Nullable="false" />
+          <Property Name="ilosc" Type="Int32" />
+          <NavigationProperty Name="magazyn_produkty" Relationship="Self.FK__magazyn_l__produ__4F7CD00D" FromRole="magazyn_lista" ToRole="magazyn_produkty" />
+          <NavigationProperty Name="sprzedaz_sklepy" Relationship="Self.FK__magazyn_l__sklep__4E88ABD4" FromRole="magazyn_lista" ToRole="sprzedaz_sklepy" />
+        </EntityType>
+        <EntityType Name="magazyn_produkty">
+          <Key>
+            <PropertyRef Name="produkt_id" />
+          </Key>
+          <Property Name="produkt_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="produkt_nazwa" Type="String" MaxLength="35" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="firma_id" Type="Int32" Nullable="false" />
+          <Property Name="kategoria_id" Type="Int32" Nullable="false" />
+          <Property Name="model_rok" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cena" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <NavigationProperty Name="magazyn_firmy" Relationship="Self.FK__magazyn_p__firma__3B75D760" FromRole="magazyn_produkty" ToRole="magazyn_firmy" />
+          <NavigationProperty Name="magazyn_kategorie" Relationship="Self.FK__magazyn_p__kateg__3A81B327" FromRole="magazyn_produkty" ToRole="magazyn_kategorie" />
+          <NavigationProperty Name="magazyn_lista" Relationship="Self.FK__magazyn_l__produ__4F7CD00D" FromRole="magazyn_produkty" ToRole="magazyn_lista" />
+          <NavigationProperty Name="sprzedaz_zamowione_rzeczy" Relationship="Self.FK__sprzedaz___produ__4BAC3F29" FromRole="magazyn_produkty" ToRole="sprzedaz_zamowione_rzeczy" />
+        </EntityType>
+        <EntityType Name="sprzedaz_klienci">
+          <Key>
+            <PropertyRef Name="klient_id" />
+          </Key>
+          <Property Name="klient_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="imie" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nazwisko" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="telefon" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="35" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ulica" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="miasto" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="kod_pocztowy" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="sprzedaz_zamowienia" Relationship="Self.FK__sprzedaz___klien__45F365D3" FromRole="sprzedaz_klienci" ToRole="sprzedaz_zamowienia" />
+        </EntityType>
+        <EntityType Name="sprzedaz_pracownicy">
+          <Key>
+            <PropertyRef Name="pracownik_id" />
+          </Key>
+          <Property Name="pracownik_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="imie" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nazwisko" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="35" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="telefon" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="sklep_id" Type="Int32" Nullable="false" />
+          <Property Name="menadzer_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="sprzedaz_sklepy" Relationship="Self.FK__sprzedaz___sklep__4316F928" FromRole="sprzedaz_pracownicy" ToRole="sprzedaz_sklepy" />
+        </EntityType>
+        <EntityType Name="sprzedaz_sklepy">
+          <Key>
+            <PropertyRef Name="sklep_id" />
+          </Key>
+          <Property Name="sklep_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="sklep_nazwa" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="telefon" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="35" FixedLength="false" Unicode="false" />
+          <Property Name="ulica" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="miasto" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="kod_pocztowy" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="magazyn_lista" Relationship="Self.FK__magazyn_l__sklep__4E88ABD4" FromRole="sprzedaz_sklepy" ToRole="magazyn_lista" />
+          <NavigationProperty Name="sprzedaz_pracownicy" Relationship="Self.FK__sprzedaz___sklep__4316F928" FromRole="sprzedaz_sklepy" ToRole="sprzedaz_pracownicy" />
+          <NavigationProperty Name="sprzedaz_zamowienia" Relationship="Self.FK__sprzedaz___sklep__46E78A0C" FromRole="sprzedaz_sklepy" ToRole="sprzedaz_zamowienia" />
+        </EntityType>
+        <EntityType Name="sprzedaz_zamowienia">
+          <Key>
+            <PropertyRef Name="zamowienie_id" />
+          </Key>
+          <Property Name="zamowienie_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="klient_id" Type="Int32" />
+          <Property Name="zamowienie_status" Type="Byte" Nullable="false" />
+          <Property Name="zamowienia_data" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="wysylka_data" Type="DateTime" Precision="0" />
+          <Property Name="sklep_id" Type="Int32" Nullable="false" />
+          <Property Name="pracownik_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="sprzedaz_klienci" Relationship="Self.FK__sprzedaz___klien__45F365D3" FromRole="sprzedaz_zamowienia" ToRole="sprzedaz_klienci" />
+          <NavigationProperty Name="sprzedaz_sklepy" Relationship="Self.FK__sprzedaz___sklep__46E78A0C" FromRole="sprzedaz_zamowienia" ToRole="sprzedaz_sklepy" />
+          <NavigationProperty Name="sprzedaz_zamowione_rzeczy" Relationship="Self.FK__sprzedaz___zamow__4AB81AF0" FromRole="sprzedaz_zamowienia" ToRole="sprzedaz_zamowione_rzeczy" />
+        </EntityType>
+        <EntityType Name="sprzedaz_zamowione_rzeczy">
+          <Key>
+            <PropertyRef Name="zamowienie_id" />
+          </Key>
+          <Property Name="zamowienie_id" Type="Int32" Nullable="false" />
+          <Property Name="produkt_id" Type="Int32" Nullable="false" />
+          <Property Name="ilosc" Type="Int32" Nullable="false" />
+          <Property Name="cena" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="przecena" Type="Decimal" Precision="4" Scale="2" Nullable="false" />
+          <NavigationProperty Name="magazyn_produkty" Relationship="Self.FK__sprzedaz___produ__4BAC3F29" FromRole="sprzedaz_zamowione_rzeczy" ToRole="magazyn_produkty" />
+          <NavigationProperty Name="sprzedaz_zamowienia" Relationship="Self.FK__sprzedaz___zamow__4AB81AF0" FromRole="sprzedaz_zamowione_rzeczy" ToRole="sprzedaz_zamowienia" />
+        </EntityType>
+        <Association Name="FK__magazyn_p__firma__3B75D760">
+          <End Role="magazyn_firmy" Type="Self.magazyn_firmy" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="magazyn_produkty" Type="Self.magazyn_produkty" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="magazyn_firmy">
+              <PropertyRef Name="firma_id" />
+            </Principal>
+            <Dependent Role="magazyn_produkty">
+              <PropertyRef Name="firma_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__magazyn_p__kateg__3A81B327">
+          <End Role="magazyn_kategorie" Type="Self.magazyn_kategorie" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="magazyn_produkty" Type="Self.magazyn_produkty" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="magazyn_kategorie">
+              <PropertyRef Name="kategoria_id" />
+            </Principal>
+            <Dependent Role="magazyn_produkty">
+              <PropertyRef Name="kategoria_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__magazyn_l__produ__4F7CD00D">
+          <End Role="magazyn_produkty" Type="Self.magazyn_produkty" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="magazyn_lista" Type="Self.magazyn_lista" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="magazyn_produkty">
+              <PropertyRef Name="produkt_id" />
+            </Principal>
+            <Dependent Role="magazyn_lista">
+              <PropertyRef Name="produkt_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__magazyn_l__sklep__4E88ABD4">
+          <End Role="sprzedaz_sklepy" Type="Self.sprzedaz_sklepy" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="magazyn_lista" Type="Self.magazyn_lista" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sprzedaz_sklepy">
+              <PropertyRef Name="sklep_id" />
+            </Principal>
+            <Dependent Role="magazyn_lista">
+              <PropertyRef Name="sklep_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__sprzedaz___produ__4BAC3F29">
+          <End Role="magazyn_produkty" Type="Self.magazyn_produkty" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="sprzedaz_zamowione_rzeczy" Type="Self.sprzedaz_zamowione_rzeczy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="magazyn_produkty">
+              <PropertyRef Name="produkt_id" />
+            </Principal>
+            <Dependent Role="sprzedaz_zamowione_rzeczy">
+              <PropertyRef Name="produkt_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__sprzedaz___klien__45F365D3">
+          <End Role="sprzedaz_klienci" Type="Self.sprzedaz_klienci" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="sprzedaz_zamowienia" Type="Self.sprzedaz_zamowienia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sprzedaz_klienci">
+              <PropertyRef Name="klient_id" />
+            </Principal>
+            <Dependent Role="sprzedaz_zamowienia">
+              <PropertyRef Name="klient_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__sprzedaz___sklep__4316F928">
+          <End Role="sprzedaz_sklepy" Type="Self.sprzedaz_sklepy" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="sprzedaz_pracownicy" Type="Self.sprzedaz_pracownicy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sprzedaz_sklepy">
+              <PropertyRef Name="sklep_id" />
+            </Principal>
+            <Dependent Role="sprzedaz_pracownicy">
+              <PropertyRef Name="sklep_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__sprzedaz___sklep__46E78A0C">
+          <End Role="sprzedaz_sklepy" Type="Self.sprzedaz_sklepy" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="sprzedaz_zamowienia" Type="Self.sprzedaz_zamowienia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sprzedaz_sklepy">
+              <PropertyRef Name="sklep_id" />
+            </Principal>
+            <Dependent Role="sprzedaz_zamowienia">
+              <PropertyRef Name="sklep_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__sprzedaz___zamow__4AB81AF0">
+          <End Role="sprzedaz_zamowienia" Type="Self.sprzedaz_zamowienia" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="sprzedaz_zamowione_rzeczy" Type="Self.sprzedaz_zamowione_rzeczy" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="sprzedaz_zamowienia">
+              <PropertyRef Name="zamowienie_id" />
+            </Principal>
+            <Dependent Role="sprzedaz_zamowione_rzeczy">
+              <PropertyRef Name="zamowienie_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DataBaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="magazyn_firmy" EntityType="Self.magazyn_firmy" />
+          <EntitySet Name="magazyn_kategorie" EntityType="Self.magazyn_kategorie" />
+          <EntitySet Name="magazyn_lista" EntityType="Self.magazyn_lista" />
+          <EntitySet Name="magazyn_produkty" EntityType="Self.magazyn_produkty" />
+          <EntitySet Name="sprzedaz_klienci" EntityType="Self.sprzedaz_klienci" />
+          <EntitySet Name="sprzedaz_pracownicy" EntityType="Self.sprzedaz_pracownicy" />
+          <EntitySet Name="sprzedaz_sklepy" EntityType="Self.sprzedaz_sklepy" />
+          <EntitySet Name="sprzedaz_zamowienia" EntityType="Self.sprzedaz_zamowienia" />
+          <EntitySet Name="sprzedaz_zamowione_rzeczy" EntityType="Self.sprzedaz_zamowione_rzeczy" />
+          <AssociationSet Name="FK__magazyn_p__firma__3B75D760" Association="Self.FK__magazyn_p__firma__3B75D760">
+            <End Role="magazyn_firmy" EntitySet="magazyn_firmy" />
+            <End Role="magazyn_produkty" EntitySet="magazyn_produkty" />
+          </AssociationSet>
+          <AssociationSet Name="FK__magazyn_p__kateg__3A81B327" Association="Self.FK__magazyn_p__kateg__3A81B327">
+            <End Role="magazyn_kategorie" EntitySet="magazyn_kategorie" />
+            <End Role="magazyn_produkty" EntitySet="magazyn_produkty" />
+          </AssociationSet>
+          <AssociationSet Name="FK__magazyn_l__produ__4F7CD00D" Association="Self.FK__magazyn_l__produ__4F7CD00D">
+            <End Role="magazyn_produkty" EntitySet="magazyn_produkty" />
+            <End Role="magazyn_lista" EntitySet="magazyn_lista" />
+          </AssociationSet>
+          <AssociationSet Name="FK__magazyn_l__sklep__4E88ABD4" Association="Self.FK__magazyn_l__sklep__4E88ABD4">
+            <End Role="sprzedaz_sklepy" EntitySet="sprzedaz_sklepy" />
+            <End Role="magazyn_lista" EntitySet="magazyn_lista" />
+          </AssociationSet>
+          <AssociationSet Name="FK__sprzedaz___produ__4BAC3F29" Association="Self.FK__sprzedaz___produ__4BAC3F29">
+            <End Role="magazyn_produkty" EntitySet="magazyn_produkty" />
+            <End Role="sprzedaz_zamowione_rzeczy" EntitySet="sprzedaz_zamowione_rzeczy" />
+          </AssociationSet>
+          <AssociationSet Name="FK__sprzedaz___klien__45F365D3" Association="Self.FK__sprzedaz___klien__45F365D3">
+            <End Role="sprzedaz_klienci" EntitySet="sprzedaz_klienci" />
+            <End Role="sprzedaz_zamowienia" EntitySet="sprzedaz_zamowienia" />
+          </AssociationSet>
+          <AssociationSet Name="FK__sprzedaz___sklep__4316F928" Association="Self.FK__sprzedaz___sklep__4316F928">
+            <End Role="sprzedaz_sklepy" EntitySet="sprzedaz_sklepy" />
+            <End Role="sprzedaz_pracownicy" EntitySet="sprzedaz_pracownicy" />
+          </AssociationSet>
+          <AssociationSet Name="FK__sprzedaz___sklep__46E78A0C" Association="Self.FK__sprzedaz___sklep__46E78A0C">
+            <End Role="sprzedaz_sklepy" EntitySet="sprzedaz_sklepy" />
+            <End Role="sprzedaz_zamowienia" EntitySet="sprzedaz_zamowienia" />
+          </AssociationSet>
+          <AssociationSet Name="FK__sprzedaz___zamow__4AB81AF0" Association="Self.FK__sprzedaz___zamow__4AB81AF0">
+            <End Role="sprzedaz_zamowienia" EntitySet="sprzedaz_zamowienia" />
+            <End Role="sprzedaz_zamowione_rzeczy" EntitySet="sprzedaz_zamowione_rzeczy" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DataBaseModelStoreContainer" CdmEntityContainer="DataBaseEntities">
+          <EntitySetMapping Name="magazyn_firmy">
+            <EntityTypeMapping TypeName="DataBaseModel.magazyn_firmy">
+              <MappingFragment StoreEntitySet="magazyn_firmy">
+                <ScalarProperty Name="firma_id" ColumnName="firma_id" />
+                <ScalarProperty Name="firma_nazwa" ColumnName="firma_nazwa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="magazyn_kategorie">
+            <EntityTypeMapping TypeName="DataBaseModel.magazyn_kategorie">
+              <MappingFragment StoreEntitySet="magazyn_kategorie">
+                <ScalarProperty Name="kategoria_id" ColumnName="kategoria_id" />
+                <ScalarProperty Name="kategoria_nazwa" ColumnName="kategoria_nazwa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="magazyn_lista">
+            <EntityTypeMapping TypeName="DataBaseModel.magazyn_lista">
+              <MappingFragment StoreEntitySet="magazyn_lista">
+                <ScalarProperty Name="sklep_id" ColumnName="sklep_id" />
+                <ScalarProperty Name="produkt_id" ColumnName="produkt_id" />
+                <ScalarProperty Name="ilosc" ColumnName="ilosc" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="magazyn_produkty">
+            <EntityTypeMapping TypeName="DataBaseModel.magazyn_produkty">
+              <MappingFragment StoreEntitySet="magazyn_produkty">
+                <ScalarProperty Name="produkt_id" ColumnName="produkt_id" />
+                <ScalarProperty Name="produkt_nazwa" ColumnName="produkt_nazwa" />
+                <ScalarProperty Name="firma_id" ColumnName="firma_id" />
+                <ScalarProperty Name="kategoria_id" ColumnName="kategoria_id" />
+                <ScalarProperty Name="model_rok" ColumnName="model_rok" />
+                <ScalarProperty Name="cena" ColumnName="cena" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sprzedaz_klienci">
+            <EntityTypeMapping TypeName="DataBaseModel.sprzedaz_klienci">
+              <MappingFragment StoreEntitySet="sprzedaz_klienci">
+                <ScalarProperty Name="klient_id" ColumnName="klient_id" />
+                <ScalarProperty Name="imie" ColumnName="imie" />
+                <ScalarProperty Name="nazwisko" ColumnName="nazwisko" />
+                <ScalarProperty Name="telefon" ColumnName="telefon" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="ulica" ColumnName="ulica" />
+                <ScalarProperty Name="miasto" ColumnName="miasto" />
+                <ScalarProperty Name="kod_pocztowy" ColumnName="kod_pocztowy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sprzedaz_pracownicy">
+            <EntityTypeMapping TypeName="DataBaseModel.sprzedaz_pracownicy">
+              <MappingFragment StoreEntitySet="sprzedaz_pracownicy">
+                <ScalarProperty Name="pracownik_id" ColumnName="pracownik_id" />
+                <ScalarProperty Name="imie" ColumnName="imie" />
+                <ScalarProperty Name="nazwisko" ColumnName="nazwisko" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="telefon" ColumnName="telefon" />
+                <ScalarProperty Name="sklep_id" ColumnName="sklep_id" />
+                <ScalarProperty Name="menadzer_id" ColumnName="menadzer_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sprzedaz_sklepy">
+            <EntityTypeMapping TypeName="DataBaseModel.sprzedaz_sklepy">
+              <MappingFragment StoreEntitySet="sprzedaz_sklepy">
+                <ScalarProperty Name="sklep_id" ColumnName="sklep_id" />
+                <ScalarProperty Name="sklep_nazwa" ColumnName="sklep_nazwa" />
+                <ScalarProperty Name="telefon" ColumnName="telefon" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="ulica" ColumnName="ulica" />
+                <ScalarProperty Name="miasto" ColumnName="miasto" />
+                <ScalarProperty Name="kod_pocztowy" ColumnName="kod_pocztowy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sprzedaz_zamowienia">
+            <EntityTypeMapping TypeName="DataBaseModel.sprzedaz_zamowienia">
+              <MappingFragment StoreEntitySet="sprzedaz_zamowienia">
+                <ScalarProperty Name="zamowienie_id" ColumnName="zamowienie_id" />
+                <ScalarProperty Name="klient_id" ColumnName="klient_id" />
+                <ScalarProperty Name="zamowienie_status" ColumnName="zamowienie_status" />
+                <ScalarProperty Name="zamowienia_data" ColumnName="zamowienia_data" />
+                <ScalarProperty Name="wysylka_data" ColumnName="wysylka_data" />
+                <ScalarProperty Name="sklep_id" ColumnName="sklep_id" />
+                <ScalarProperty Name="pracownik_id" ColumnName="pracownik_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sprzedaz_zamowione_rzeczy">
+            <EntityTypeMapping TypeName="DataBaseModel.sprzedaz_zamowione_rzeczy">
+              <MappingFragment StoreEntitySet="sprzedaz_zamowione_rzeczy">
+                <ScalarProperty Name="zamowienie_id" ColumnName="zamowienie_id" />
+                <ScalarProperty Name="produkt_id" ColumnName="produkt_id" />
+                <ScalarProperty Name="ilosc" ColumnName="ilosc" />
+                <ScalarProperty Name="cena" ColumnName="cena" />
+                <ScalarProperty Name="przecena" ColumnName="przecena" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
