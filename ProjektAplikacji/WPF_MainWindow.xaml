@@ -1,0 +1,19 @@
+﻿<Window x:Class="ProjektAplikacji.WPF_MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProjektAplikacji"
+        mc:Ignorable="d"
+        Title="WPF_MainWindow" Height="450" Width="800">
+    <Grid>
+        <DataGrid x:Name ="gridItems" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="10,10,268,10"/>
+        <Label Content="Name" HorizontalAlignment="Left" Margin="568,15,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.883,0.665"/>
+        <TextBox x:Name="txtItemName" HorizontalAlignment="Left" Margin="622,23,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Price" HorizontalAlignment="Left" Margin="568,58,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.883,0.665"/>
+        <TextBox x:Name="txtItemPrice" HorizontalAlignment="Left" Margin="622,66,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="btnAdd" Click="btnAdd_Click" Content="Add" HorizontalAlignment="Left" Margin="632,148,0,0" VerticalAlignment="Top" Width="101"/>
+        <Button x:Name="btnLoadItems" Click="btnLoadItems_Click" Content="Refresh" HorizontalAlignment="Left" Margin="632,202,0,0" VerticalAlignment="Top" Width="100" RenderTransformOrigin="0.518,0.696"/>
+
+    </Grid>
+</Window>
