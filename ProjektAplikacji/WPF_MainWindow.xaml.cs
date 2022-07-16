@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -89,27 +90,33 @@ namespace ProjektAplikacji
         }
 
         private int updateItemID = 1;
+
+
         private void gridItems_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Console.WriteLine();
-        
-
-
-            if (this.gridItems.SelectedIndex >= 0)
+           
+            var tempid = "";
+            foreach (var item in gridItems.SelectedItems.AsQueryable())
             {
-                if (this.gridItems.SelectedItems.Count >= 0)
+                tempid = item.ToString();
+                tempid = tempid.Split('=', ',')[1];
+                tempid = tempid.Trim();
+            }
+            
+            // if (this.gridItems.SelectedIndex >= 0)
+            {
+               // if (this.gridItems.SelectedItems.Count >= 0)
                 {
                     //if (this.gridItems.SelectedItems.GetType() == typeof(magazyn_produkty))
                     {
+                        DataBaseEntities db = new DataBaseEntities();
+                        int temporaryid = Convert.ToInt32(tempid);
 
-                        //magazyn_produkty mp = (magazyn_produkty)this.gridItems.SelectedItems;
-                        Console.WriteLine(mp);
+                        var r = from d in db.magazyn_produkty
+                                where d.produkt_id == temporaryid
+                                select d;
 
-                        foreach (var mp2 in this.gridItems.SelectedItems)
-                        {
-                            Console.WriteLine(mp2);
-                        }
-                        
+                        foreach (var mp in r)
                         {
                             this.txtItemName2.Text = mp.produkt_nazwa;
                             this.txtItemPrice2.Text = mp.cena.ToString();
@@ -117,11 +124,8 @@ namespace ProjektAplikacji
                             this.txtItemYear2.Text = mp.model_rok;
                             this.txtItemCategory2.Text = mp.kategoria_id.ToString();
                             this.txtItemFirm2.Text = mp.firma_id.ToString();
-
                             this.updateItemID = mp.produkt_id;
                         }
-                       
-                        
                     }
                 }
             }
@@ -132,7 +136,7 @@ namespace ProjektAplikacji
         {
             DataBaseEntities db = new DataBaseEntities();
             var r = from d in db.magazyn_produkty
-                    where d.produkt_id == 2
+                    where d.produkt_id == this.updateItemID
                     select d;
 
             foreach (var item in r)
