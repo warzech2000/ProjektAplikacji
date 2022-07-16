@@ -5,50 +5,62 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjektAplikacji"
         mc:Ignorable="d"
-        Title="WPF_MainWindow" Height="450" Width="800">
+        Title="Aplikacja CRUD" Height="800" Width="800" Background="#FF595892">
     <Grid>
-        <DataGrid x:Name ="gridItems" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="10,10,268,254" SelectionChanged="gridItems_SelectionChanged"/>
+        <DataGrid x:Name ="gridItems" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="56,24,44,472" SelectionChanged="gridItems_SelectionChanged" Width="700" Background="#FFBFBFBF" Height="300"/>
 
-        <Label Content="Name" HorizontalAlignment="Left" Margin="568,15,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.883,0.665"/>
-        <TextBox x:Name="txtItemName" HorizontalAlignment="Left" Margin="622,23,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="btnAdd" Click="btnAdd_Click" Content="Add" HorizontalAlignment="Left" VerticalAlignment="Top" Width="152" Margin="56,671,0,0" FontSize="14" FontWeight="Bold" BorderBrush="#FF588192" Foreground="Black" Height="60" Background="White" BorderThickness="10,10,10,10"/>
 
-        <Label Content="Price" HorizontalAlignment="Left" Margin="568,38,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.883,0.665"/>
-        <TextBox x:Name="txtItemPrice" HorizontalAlignment="Left" Margin="622,46,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="btnUpdate" Click="btnUpdate_Click" Content="Update Record" HorizontalAlignment="Left" VerticalAlignment="Top" Width="154" Margin="340,672,0,0" FontSize="14" FontWeight="Bold" BorderBrush="#FF9A4B8C" Foreground="Black" Height="59" Background="White" BorderThickness="10,10,10,10"/>
 
+        <Button x:Name="btnLoadItems" Click="btnLoadItems_Click" Content="Refresh List" HorizontalAlignment="Left" Margin="604,329,0,0" VerticalAlignment="Top" Width="152" RenderTransformOrigin="0.533,0.251" FontSize="14" FontWeight="Bold" BorderBrush="#FFD9FF00" Foreground="Black" Height="60" Background="White" BorderThickness="10,10,10,10"/>
 
-        <Label Content="item id" HorizontalAlignment="Left" Margin="568,73,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.883,0.665"/>
-        <TextBox x:Name="txtItemID" HorizontalAlignment="Left" Margin="622,81,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="btnDeleteRecord" Click="btnDeleteRecord_Click" Content="Delete Record" HorizontalAlignment="Left" Margin="604,671,0,0" VerticalAlignment="Top" Width="152" Background="Red" FontSize="14" FontWeight="Bold" BorderBrush="#00000000" Foreground="Black" Height="60"/>
 
-        <Label Content="year" HorizontalAlignment="Left" Margin="568,96,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.883,0.665"/>
-        <TextBox x:Name="txtItemYear" HorizontalAlignment="Left" Margin="622,104,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <WrapPanel HorizontalAlignment="Left" Orientation="Vertical" VerticalAlignment="Top" Margin="56,329,0,0" Background="#FF588192" Width="152">
 
-        <Label Content="category" HorizontalAlignment="Left" Margin="568,131,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.883,0.665"/>
-        <TextBox x:Name="txtItemCategory" HorizontalAlignment="Left" Margin="622,139,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+            <Label Content="Name" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="1.883,0.665" Foreground="#FFD9FF00" FontSize="16" FontWeight="Bold" Width="70"/>
+            <TextBox x:Name="txtItemName" HorizontalAlignment="Center" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Width="152" BorderBrush="Black" Background="White" FontSize="16" FontWeight="Normal"/>
 
-        <Label Content="firm" HorizontalAlignment="Left" Margin="568,154,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.883,0.665"/>
-        <TextBox x:Name="txtItemFirm" HorizontalAlignment="Left" Margin="622,162,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+            <Label Content="Price" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="1.883,0.665" Foreground="#FFD9FF00" FontSize="16" FontWeight="Bold" Width="60"/>
+            <TextBox x:Name="txtItemPrice" HorizontalAlignment="Center" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Width="152" BorderBrush="Black" Background="White" FontSize="16" FontWeight="Normal"/>
 
 
-        <Button x:Name="btnAdd" Click="btnAdd_Click" Content="Add" HorizontalAlignment="Left" Margin="622,205,0,0" VerticalAlignment="Top" Width="101"/>
+            <Label Content="Item ID" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="1.883,0.665" Foreground="#FFD9FF00" FontSize="16" FontWeight="Bold" Width="84"/>
+            <TextBox x:Name="txtItemID" HorizontalAlignment="Center" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Width="152" BorderBrush="Black" Background="White" FontSize="16" FontWeight="Normal"/>
 
-        <Button x:Name="btnLoadItems" Click="btnLoadItems_Click" Content="Refresh List" HorizontalAlignment="Left" Margin="622,324,0,0" VerticalAlignment="Top" Width="100" RenderTransformOrigin="0.518,0.696"/>
+            <Label Content="Year" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="1.883,0.665" Foreground="#FFD9FF00" FontSize="16" FontWeight="Bold" Width="54"/>
+            <TextBox x:Name="txtItemYear" HorizontalAlignment="Center" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Width="152" BorderBrush="Black" Background="White" FontSize="16" FontWeight="Normal"/>
 
-        <Button x:Name="btnUpdate" Click="btnUpdate_Click" Content="Update Record" HorizontalAlignment="Left" Margin="254,310,0,0" VerticalAlignment="Top" Width="100" RenderTransformOrigin="0.518,0.696"/>
+            <Label Content="Category" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="1.883,0.665" Foreground="#FFD9FF00" FontSize="16" FontWeight="Bold" Width="100"/>
+            <TextBox x:Name="txtItemCategory" HorizontalAlignment="Center" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Width="152" BorderBrush="Black" Background="White" FontSize="16" FontWeight="Normal"/>
 
+            <Label Content="Brand" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="1.883,0.665" Foreground="#FFD9FF00" FontSize="16" FontWeight="Bold" Width="70"/>
+            <TextBox x:Name="txtItemFirm" HorizontalAlignment="Center" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Width="152" BorderBrush="Black" Background="White" FontSize="16" FontWeight="Normal"/>
 
-        <Label Content="Name" HorizontalAlignment="Left" Margin="30,236,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.883,0.665"/>
-        <TextBox x:Name="txtItemName2" HorizontalAlignment="Left" Margin="84,244,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-        <Label Content="Price" HorizontalAlignment="Left" Margin="30,259,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.883,0.665"/>
-        <TextBox x:Name="txtItemPrice2" HorizontalAlignment="Left" Margin="84,267,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-        <Label Content="item id" HorizontalAlignment="Left" Margin="30,294,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.883,0.665"/>
-        <TextBox x:Name="txtItemID2" HorizontalAlignment="Left" Margin="84,302,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-        <Label Content="year" HorizontalAlignment="Left" Margin="30,317,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.883,0.665"/>
-        <TextBox x:Name="txtItemYear2" HorizontalAlignment="Left" Margin="84,325,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-        <Label Content="category" HorizontalAlignment="Left" Margin="30,352,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.883,0.665"/>
-        <TextBox x:Name="txtItemCategory2" HorizontalAlignment="Left" Margin="84,360,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-        <Label Content="firm" HorizontalAlignment="Left" Margin="30,375,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.883,0.665"/>
-        <TextBox x:Name="txtItemFirm2" HorizontalAlignment="Left" Margin="84,383,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-        <Button x:Name="btnDeleteRecord" Click="btnDeleteRecord_Click" Content="Delete Record" HorizontalAlignment="Left" Margin="622,238,0,0" VerticalAlignment="Top" Width="101"/>
+        </WrapPanel>
+
+        <WrapPanel HorizontalAlignment="Left" Orientation="Vertical" VerticalAlignment="Top" Margin="340,329,0,0" Background="#FF9A4B8C" Width="154">
+            <Label Content="Name" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="1.883,0.665" Foreground="#FFD9FF00" FontSize="16" FontWeight="Bold" Width="70"/>
+            <TextBox x:Name="txtItemName2" HorizontalAlignment="Center" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Width="156" BorderBrush="Black" Background="White" FontSize="16" FontWeight="Normal"/>
+
+            <Label Content="Price" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="1.883,0.665" Foreground="#FFD9FF00" FontSize="16" FontWeight="Bold" Width="62"/>
+            <TextBox x:Name="txtItemPrice2" HorizontalAlignment="Center" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Width="156" BorderBrush="Black" Background="White" FontSize="16" FontWeight="Normal"/>
+
+            <Label Content="Item ID" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="1.883,0.665" Foreground="#FFD9FF00" FontSize="16" FontWeight="Bold" Width="86"/>
+            <TextBox x:Name="txtItemID2" HorizontalAlignment="Center" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Width="156" BorderBrush="Black" Background="White" FontSize="16" FontWeight="Normal"/>
+
+            <Label Content="Year" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="1.883,0.665" Foreground="#FFD9FF00" FontSize="16" FontWeight="Bold" Width="54"/>
+            <TextBox x:Name="txtItemYear2" HorizontalAlignment="Center" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Width="156" BorderBrush="Black" Background="White" FontSize="16" FontWeight="Normal"/>
+
+            <Label Content="Category" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="1.883,0.665" Foreground="#FFD9FF00" FontSize="16" FontWeight="Bold" Width="102"/>
+            <TextBox x:Name="txtItemCategory2" HorizontalAlignment="Center" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Width="156" BorderBrush="Black" Background="White" FontSize="16" FontWeight="Normal"/>
+
+            <Label Content="Brand" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="1.883,0.665" Foreground="#FFD9FF00" FontSize="16" FontWeight="Bold" Width="72"/>
+            <TextBox x:Name="txtItemFirm2" HorizontalAlignment="Center" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Width="156" BorderBrush="Black" Background="White" FontSize="16" FontWeight="Normal"/>
+
+        </WrapPanel>
+
 
     </Grid>
 </Window>

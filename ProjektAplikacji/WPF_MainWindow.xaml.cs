@@ -28,12 +28,12 @@ namespace ProjektAplikacji
             var items = from d in db.magazyn_produkty
                         select new
                         {
-                            ProductID = d.produkt_id,
-                            ProductName = d.produkt_nazwa,
-                            ProductPrice = d.cena,
-                            ProductCategory = d.produkt_nazwa,
-                            ProductDate = d.model_rok,
-                            ProductFirm = d.firma_id,
+                            ID = d.produkt_id,
+                            Name = d.produkt_nazwa,
+                            Price = d.cena,
+                            Category = d.kategoria_id,
+                            Year = d.model_rok,
+                            Brand = d.firma_id,
                         };
 
             this.gridItems.ItemsSource = items.ToList();
@@ -77,12 +77,12 @@ namespace ProjektAplikacji
             var items = from d in db.magazyn_produkty
                         select new
                         {
-                            ProductID = d.produkt_id,
-                            ProductName = d.produkt_nazwa,
-                            ProductPrice = d.cena,
-                            ProductCategory = d.produkt_nazwa,
-                            ProductDate = d.model_rok,
-                            ProductFirm = d.firma_id,
+                            ID = d.produkt_id,
+                            Name = d.produkt_nazwa,
+                            Price = d.cena,
+                            Category = d.kategoria_id,
+                            Year = d.model_rok,
+                            Brand = d.firma_id,
                         };
 
             this.gridItems.ItemsSource = items.ToList();
@@ -170,22 +170,33 @@ namespace ProjektAplikacji
 
         private void btnDeleteRecord_Click(object sender, RoutedEventArgs e)
         {
+            MessageBoxResult msgBox = MessageBox.Show(
+                "Are you sure you want to Delete this item ?",
+                "Delete Item",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Warning,
+                MessageBoxResult.No
+                );
 
-            DataBaseEntities db = new DataBaseEntities();
-
-            var r = from d in db.magazyn_produkty
-                    where d.produkt_id == this.updateItemID
-                    select d;
-
-            magazyn_produkty obj = r.SingleOrDefault();
-
-            if(obj != null)
+            if (msgBox == MessageBoxResult.Yes)
             {
 
-                db.magazyn_produkty.Remove(obj);
-                db.SaveChanges();
-                btnLoadItems_Click(sender, e);
+                DataBaseEntities db = new DataBaseEntities();
 
+                var r = from d in db.magazyn_produkty
+                        where d.produkt_id == this.updateItemID
+                        select d;
+
+                magazyn_produkty obj = r.SingleOrDefault();
+
+                if (obj != null)
+                {
+
+                    db.magazyn_produkty.Remove(obj);
+                    db.SaveChanges();
+                    btnLoadItems_Click(sender, e);
+
+                }
             }
         }
     }
