@@ -22,7 +22,14 @@ namespace ProjektAplikacji
     {
         public WPF_MainWindow()
         {
+            /// <summary>
+            /// Main element of WPF application
+            /// Used to generate and display grid
+            /// </summary>
+
             InitializeComponent();
+
+
 
             DataBaseEntities db = new DataBaseEntities();
             var items = from d in db.magazyn_produkty
@@ -41,6 +48,13 @@ namespace ProjektAplikacji
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
+            /// <summary>
+            /// Button functionality for adding object to database
+            /// </summary>
+            /// <returns>
+            /// New object to database
+            /// </returns>
+          
             DataBaseEntities db = new DataBaseEntities();
 
             Random random = new Random();
@@ -53,9 +67,11 @@ namespace ProjektAplikacji
             {
                 prodIDtemp=int.Parse(txtItemID.Text);
             }
+
             if (txtItemName.Text != String.Empty) {
                 magazyn_produkty itemObject = new magazyn_produkty()
                 {
+
                     produkt_id = prodIDtemp,
                     produkt_nazwa = txtItemName.Text,
                     firma_id = int.Parse(txtItemFirm.Text),
@@ -72,6 +88,12 @@ namespace ProjektAplikacji
 
         private void btnLoadItems_Click(object sender, RoutedEventArgs e)
         {
+            /// <summary>
+            /// Button functionality for loadin/reloading database
+            /// </summary>
+            /// <returns>
+            /// Load objects from data base to grid
+            /// </returns>
             DataBaseEntities db = new DataBaseEntities();
 
             var items = from d in db.magazyn_produkty
@@ -93,30 +115,36 @@ namespace ProjektAplikacji
 
         private void gridItems_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-           
-            var tempid = "";
-            int temporaryid = 0;
+            /// <summary>
+            /// Grid functionality for returning active grid item
+            /// </summary>
+            /// <returns>
+            /// Values from database to text boxes and get selected item ID
+            /// </returns>
+
+            var tmpval = "";
+            int tmpID = 0;
 
             foreach (var item in gridItems.SelectedItems.AsQueryable())
             {
-                tempid = item.ToString();
-                tempid = tempid.Split('=', ',')[1];
-                tempid = tempid.Trim();
+                tmpval = item.ToString();
+                tmpval = tmpval.Split('=', ',')[1];
+                tmpval = tmpval.Trim();
             }
 
             DataBaseEntities db = new DataBaseEntities();
 
             try
             {
-                temporaryid = Convert.ToInt32(tempid);
+                tmpID = Convert.ToInt32(tmpval);
             }
             catch
             {
-                new Exception(tempid);
+                new Exception(tmpval);
             }
 
             var r = from d in db.magazyn_produkty
-                    where d.produkt_id == temporaryid
+                    where d.produkt_id == tmpID
                     select d;
 
             if (this.gridItems.SelectedIndex >= 0)
@@ -142,6 +170,12 @@ namespace ProjektAplikacji
 
         private void btnUpdate_Click(object sender, RoutedEventArgs e)
         {
+            /// <summary>
+            /// Button functionality for updating selected item data
+            /// </summary>
+            /// <returns>
+            /// Update of selected item with values type in
+            /// </returns>
 
             DataBaseEntities db = new DataBaseEntities();
 
@@ -155,7 +189,7 @@ namespace ProjektAplikacji
             {
 
                 obj.produkt_nazwa = this.txtItemName2.Text;
-                //obj.produkt_id = Convert.ToInt32(this.txtItemID2.Text);
+                obj.produkt_id = Convert.ToInt32(this.txtItemID2.Text);
                 obj.cena = Convert.ToDecimal(this.txtItemPrice2.Text);
                 obj.model_rok = this.txtItemYear2.Text;
                 obj.firma_id = Convert.ToInt32(this.txtItemFirm2.Text);
@@ -170,6 +204,13 @@ namespace ProjektAplikacji
 
         private void btnDeleteRecord_Click(object sender, RoutedEventArgs e)
         {
+            /// <summary>
+            /// Button functionality for deleting an object from database
+            /// </summary> 
+            /// <returns>
+            /// Delete selected item from database
+            /// </returns>
+
             MessageBoxResult msgBox = MessageBox.Show(
                 "Are you sure you want to Delete this item ?",
                 "Delete Item",

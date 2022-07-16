@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjektAplikacji"
         mc:Ignorable="d"
-        Title="Aplikacja CRUD" Height="800" Width="800" Background="#FF595892">
+        Title="CRUD Application" Height="800" Width="800" Background="#FF595892">
     <Grid>
         <DataGrid x:Name ="gridItems" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="56,24,44,472" SelectionChanged="gridItems_SelectionChanged" Width="700" Background="#FFBFBFBF" Height="300"/>
 
