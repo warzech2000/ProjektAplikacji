@@ -31,11 +31,11 @@
 
         <Button x:Name="btnAdd" Click="btnAdd_Click" Content="Add" HorizontalAlignment="Left" Margin="622,205,0,0" VerticalAlignment="Top" Width="101"/>
 
-        <Button x:Name="btnLoadItems" Click="btnLoadItems_Click" Content="Refresh" HorizontalAlignment="Left" Margin="624,259,0,0" VerticalAlignment="Top" Width="100" RenderTransformOrigin="0.518,0.696"/>
+        <Button x:Name="btnLoadItems" Click="btnLoadItems_Click" Content="Refresh List" HorizontalAlignment="Left" Margin="622,324,0,0" VerticalAlignment="Top" Width="100" RenderTransformOrigin="0.518,0.696"/>
 
-        <Button x:Name="btnUpdate" Click="btnUpdate_Click" Content="Update" HorizontalAlignment="Left" Margin="254,310,0,0" VerticalAlignment="Top" Width="100" RenderTransformOrigin="0.518,0.696"/>
-        
-        
+        <Button x:Name="btnUpdate" Click="btnUpdate_Click" Content="Update Record" HorizontalAlignment="Left" Margin="254,310,0,0" VerticalAlignment="Top" Width="100" RenderTransformOrigin="0.518,0.696"/>
+
+
         <Label Content="Name" HorizontalAlignment="Left" Margin="30,236,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.883,0.665"/>
         <TextBox x:Name="txtItemName2" HorizontalAlignment="Left" Margin="84,244,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
         <Label Content="Price" HorizontalAlignment="Left" Margin="30,259,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.883,0.665"/>
@@ -48,6 +48,7 @@
         <TextBox x:Name="txtItemCategory2" HorizontalAlignment="Left" Margin="84,360,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
         <Label Content="firm" HorizontalAlignment="Left" Margin="30,375,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.883,0.665"/>
         <TextBox x:Name="txtItemFirm2" HorizontalAlignment="Left" Margin="84,383,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="btnDeleteRecord" Click="btnDeleteRecord_Click" Content="Delete Record" HorizontalAlignment="Left" Margin="622,238,0,0" VerticalAlignment="Top" Width="101"/>
 
     </Grid>
 </Window>
