@@ -35,28 +35,32 @@ namespace ProjektAplikacji
                             ProductFirm = d.firma_id,
                         };
 
-            foreach (var item in items)
-            {
-                // 
-                Console.WriteLine(item.ProductName);
-                Console.WriteLine(item.ProductPrice);
-            }
             this.gridItems.ItemsSource = items.ToList();
         }
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
             DataBaseEntities db = new DataBaseEntities();
-            var price = 1999;
+
+            Random random = new Random();
+            var prodIDtemp = 0;
+            if(txtItemID.Text == String.Empty)
+            {
+                prodIDtemp = random.Next(10, 255);
+            }
+            else
+            {
+                prodIDtemp=int.Parse(txtItemID.Text);
+            }
 
             magazyn_produkty itemObject = new magazyn_produkty()
             {
-                produkt_id = 55,
-                produkt_nazwa = "Iphone 25",
-                firma_id = 3,
-                kategoria_id = 3,
-                model_rok = price.ToString(),
-                cena = 1000,
+                produkt_id = prodIDtemp,
+                produkt_nazwa = txtItemName.Text,
+                firma_id = int.Parse(txtItemFirm.Text),
+                kategoria_id = int.Parse(txtItemCategory.Text),
+                model_rok = txtItemYear.Text,
+                cena = decimal.Parse(txtItemPrice.Text),
 
             };
 
@@ -81,6 +85,62 @@ namespace ProjektAplikacji
                             ProductFirm = d.firma_id,
                         };
             this.gridItems.ItemsSource = items.ToList();
+
+        }
+
+        private int updateItemID = 1;
+        private void gridItems_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Console.WriteLine();
+        
+
+
+            if (this.gridItems.SelectedIndex >= 0)
+            {
+                if (this.gridItems.SelectedItems.Count >= 0)
+                {
+                    //if (this.gridItems.SelectedItems.GetType() == typeof(magazyn_produkty))
+                    {
+
+                        //magazyn_produkty mp = (magazyn_produkty)this.gridItems.SelectedItems;
+                        Console.WriteLine(mp);
+
+                        foreach (var mp2 in this.gridItems.SelectedItems)
+                        {
+                            Console.WriteLine(mp2);
+                        }
+                        
+                        {
+                            this.txtItemName2.Text = mp.produkt_nazwa;
+                            this.txtItemPrice2.Text = mp.cena.ToString();
+                            this.txtItemID2.Text = mp.produkt_id.ToString();
+                            this.txtItemYear2.Text = mp.model_rok;
+                            this.txtItemCategory2.Text = mp.kategoria_id.ToString();
+                            this.txtItemFirm2.Text = mp.firma_id.ToString();
+
+                            this.updateItemID = mp.produkt_id;
+                        }
+                       
+                        
+                    }
+                }
+            }
+            
+        }
+
+        private void btnUpdate_Click(object sender, RoutedEventArgs e)
+        {
+            DataBaseEntities db = new DataBaseEntities();
+            var r = from d in db.magazyn_produkty
+                    where d.produkt_id == 2
+                    select d;
+
+            foreach (var item in r)
+            {
+                MessageBox.Show(item.produkt_nazwa);
+                item.produkt_nazwa = "Update done";
+            }
+            db.SaveChanges();
 
         }
     }

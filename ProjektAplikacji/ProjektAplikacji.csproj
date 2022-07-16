@@ -155,21 +155,33 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>DataBaseManagment.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <None Include="App.datasource" />
+    <None Include="DataBaseEntities.datasource" />
     <None Include="DataBaseManagment.edmx.diagram">
       <DependentUpon>DataBaseManagment.edmx</DependentUpon>
     </None>
+    <None Include="magazyn_firmy.datasource" />
+    <None Include="magazyn_kategorie.datasource" />
+    <None Include="magazyn_lista.datasource" />
+    <None Include="magazyn_produkty.datasource" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <None Include="sprzedaz_klienci.datasource" />
+    <None Include="sprzedaz_pracownicy.datasource" />
+    <None Include="sprzedaz_sklepy.datasource" />
+    <None Include="sprzedaz_zamowienia.datasource" />
+    <None Include="sprzedaz_zamowione_rzeczy.datasource" />
+    <None Include="WPF_MainWindow.datasource" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="DataBase.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="DataBaseManagment.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -182,7 +194,7 @@
       <LastGenOutput>DataBaseManagment.cs</LastGenOutput>
     </Content>
     <Content Include="DataBase_log.ldf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <DependentUpon>DataBase.mdf</DependentUpon>
     </Content>
   </ItemGroup>
